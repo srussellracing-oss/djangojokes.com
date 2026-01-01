@@ -7,7 +7,7 @@ class Joke(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    def get_absolute_url():
-        return reverse('jokes:detail',args=[str(self.pk)])
+    def get_absolute_url(self): return reverse("jokes:joke_detail", args=[self.pk])
+
     def __str__(self):
         return self.question
