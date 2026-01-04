@@ -5,7 +5,7 @@ from .models import Joke
 
 class JokeCreateView(CreateView):
     model = Joke
-    fields = ['question', 'answer']
+    fields = ['question', 'answer','category']
 
 
 class JokeDetailView(DetailView):
@@ -17,7 +17,7 @@ class JokeListView(ListView):
 
 class JokeUpdateView(UpdateView):
     model = Joke
-    fields = ['question', 'answer']
+    fields = ['question', 'answer','category']
 
 class JokeDeleteView(DeleteView):
     model = Joke
