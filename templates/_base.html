@@ -9,7 +9,7 @@
 <script src="https://kit.fontawesome.com/7debf6d949.js" crossorigin="anonymous"></script>
 <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
 <title>{% block title %}{% endblock %} | Django Jokes</title>
-
+{% block javascript %}{% endblock %}
 </head>
 <body>
 <header>
@@ -31,9 +31,6 @@ aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggle
         <li class="nav-item">
           <a class="nav-link" href="{% url 'jokes:list' %}">Jokes</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Log in</a>
-        </li>
                 {% if not user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'account_login' %}">Log in</a>
@@ -52,8 +49,11 @@ aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggle
             <a class="dropdown-item" href="{% url 'my-account' %}">
                   My Account
             </a>  
-            <a class="dropdown-item" href="#">My Django Jokes</a>
-            <div class="dropdown-divider"></div>
+            <a class="dropdown-item"
+            href="{% url 'jokes:creator' user.username %}?order={{ order }}&direction={{ direction }}">
+            My Django Jokes
+                </a>
+ <div class="dropdown-divider"></div>
                        <form method="post" action="{% url 'account_logout' %}">
                 {% csrf_token %}
                 <button class="btn dropdown-item">Log out</button>
@@ -62,18 +62,31 @@ aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggle
         </li>
          {% endif %}
       </ul>
-      <form>
-        <input  type="search"
-          placeholder="Search" aria-label="Search" name="q" 
-          value="{{ request.GET.q }}">
-        <button class="btn btn-outline-success me-5" type="submit">
-          Search
-        </button>
-    </form>
+<form class="my-2 my-lg-0" action="{% url 'jokes:list' %}">
+  <div class="input-group">
+    <input class="form-control" type="search"
+      placeholder="Search" aria-label="Search" name="q"
+      value="{{ request.GET.q }}">
+    <button class="btn btn-outline-success" type="submit">
+      Search
+    </button>
+  </div>
+</form>
+
     </div>
   </nav>
 </header>
 <main class="m-4">
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <div class="alert message{{ message.tags }} alert-dismissible" role="alert">
+          <strong>{{message}}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </ul>
+  {% endif %}
   {% block main %}<h2>Welcome!</h2>{% endblock %}
 </main>
 <footer class="fixed-bottom bg-light row">

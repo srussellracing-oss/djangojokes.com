@@ -24,3 +24,44 @@ label {
   font-weight: normal;
   margin: 0 1rem;
 }
+/* MESSAGE STYLES */
+.message {
+  background-color: palegoldenrod;
+  color: black;
+}
+
+.messagedebug {
+  background-color: slategray;
+  color: white;
+}
+.messageinfo {
+  background-color: azure;
+  color: darkblue;
+}
+
+.messagesuccess {
+  background-color: lightgreen;
+  color: darkgreen;
+}
+
+.messagewarning {
+  background-color: lightgoldenrodyellow;
+  color: darkgoldenrod;
+}
+
+.messageerror {
+  background-color: pink;
+  color: darkred;
+}
+.rating-container {
+  background-color: silver;
+  border-radius: .5em;
+  max-width: 5rem;
+  padding: 2px;
+}
+
+.rating-bar {
+  background-color: gold;
+  border-radius: .5em;
+  height: 10px;
+}

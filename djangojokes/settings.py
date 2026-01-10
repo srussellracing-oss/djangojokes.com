@@ -26,7 +26,9 @@ SECRET_KEY = 'bi5j3yd=1&5i4d^0d)f*a8sk0kwmpdghq#3$8tm48gvbpvnb*h'
 DEBUG = True
 
 ALLOWED_HOSTS =  ['*'] 
-
+INTERNAL_IPS = [ # Necessary for the Debug Toolbar
+    '127.0.0.1',
+]
 
 # Application definition
 
@@ -46,6 +48,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'private_storage',
+    'debug_toolbar',
 
     # Local apps
     'common.apps.CommonConfig',
@@ -72,6 +76,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+   
 ]
 
 ROOT_URLCONF = 'djangojokes.urls'
@@ -185,6 +191,11 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+# private-storage settings
+PRIVATE_STORAGE_ROOT = MEDIA_ROOT / 'private/'
+PRIVATE_STORAGE_AUTH_FUNCTION = 'private_storage.permissions.allow_staff'
 # BOTTOM OF settings.py
 if os.environ.get('ENVIRONMENT') != 'production':
     from .local_settings import *
